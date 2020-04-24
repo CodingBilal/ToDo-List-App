@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		9CF268EC2450CA1C004C6520 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF268EB2450CA1C004C6520 /* AppDelegate.swift */; };
 		9CF268EE2450CA1C004C6520 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF268ED2450CA1C004C6520 /* SceneDelegate.swift */; };
-		9CF268F02450CA1C004C6520 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF268EF2450CA1C004C6520 /* ViewController.swift */; };
+		9CF268F02450CA1C004C6520 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CF268EF2450CA1C004C6520 /* ToDoListViewController.swift */; };
 		9CF268F32450CA1C004C6520 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CF268F12450CA1C004C6520 /* Main.storyboard */; };
 		9CF268F52450CA1F004C6520 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CF268F42450CA1F004C6520 /* Assets.xcassets */; };
 		9CF268F82450CA1F004C6520 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CF268F62450CA1F004C6520 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		9CF268E82450CA1C004C6520 /* ToDo List App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ToDo List App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CF268EB2450CA1C004C6520 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CF268ED2450CA1C004C6520 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9CF268EF2450CA1C004C6520 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9CF268EF2450CA1C004C6520 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		9CF268F22450CA1C004C6520 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CF268F42450CA1F004C6520 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CF268F72450CA1F004C6520 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,15 +56,39 @@
 		9CF268EA2450CA1C004C6520 /* ToDo List App */ = {
 			isa = PBXGroup;
 			children = (
-				9CF268EB2450CA1C004C6520 /* AppDelegate.swift */,
-				9CF268ED2450CA1C004C6520 /* SceneDelegate.swift */,
-				9CF268EF2450CA1C004C6520 /* ViewController.swift */,
-				9CF268F12450CA1C004C6520 /* Main.storyboard */,
+				9CF268FF2450CAFF004C6520 /* Model */,
+				9CF269002450CB06004C6520 /* Controller */,
+				9CF269012450CB0F004C6520 /* View */,
 				9CF268F42450CA1F004C6520 /* Assets.xcassets */,
 				9CF268F62450CA1F004C6520 /* LaunchScreen.storyboard */,
 				9CF268F92450CA1F004C6520 /* Info.plist */,
 			);
 			path = "ToDo List App";
+			sourceTree = "<group>";
+		};
+		9CF268FF2450CAFF004C6520 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9CF268EB2450CA1C004C6520 /* AppDelegate.swift */,
+				9CF268ED2450CA1C004C6520 /* SceneDelegate.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9CF269002450CB06004C6520 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9CF268EF2450CA1C004C6520 /* ToDoListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9CF269012450CB0F004C6520 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9CF268F12450CA1C004C6520 /* Main.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CF268F02450CA1C004C6520 /* ViewController.swift in Sources */,
+				9CF268F02450CA1C004C6520 /* ToDoListViewController.swift in Sources */,
 				9CF268EC2450CA1C004C6520 /* AppDelegate.swift in Sources */,
 				9CF268EE2450CA1C004C6520 /* SceneDelegate.swift in Sources */,
 			);

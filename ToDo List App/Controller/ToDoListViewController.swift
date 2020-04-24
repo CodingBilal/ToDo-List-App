@@ -52,8 +52,35 @@ class ToDoListViewController: UITableViewController {
         
     }
     
+    //MARK: - Bar Button (Addition)
     
-    
+    @IBAction func barButtonAddition(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New ToDo", message: "", preferredStyle: .alert)
+        
+        let actionAlert = UIAlertAction(title: "OK", style: .default) { (actionSaidAlert) in
+            //What will happen once user clicks OK on the alert
+            print("Success")
+            print(textField.text!)
+            
+            self.itemArray.append(textField.text!)
+            
+            self.tableView.reloadData()
+        }
+       
+       alert.addTextField { (alertTextField) in
+        
+        textField = alertTextField
+        textField.placeholder = "Enter new ToDo"
+        
+        }
+        
+        alert.addAction(actionAlert)
+        
+        present(alert, animated: true, completion: nil)
+    }
     
 }
 

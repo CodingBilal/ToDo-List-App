@@ -9,8 +9,8 @@
 import UIKit
 
 class ToDoListViewController: UITableViewController {
-
-    var itemArray = ["Find Mike", "Buy Eggos", "Beat the Demigorgon", "Get some Cake"]
+    
+    var itemArray = [DataModel]()
     
     let defaults = UserDefaults.standard
     
@@ -19,8 +19,24 @@ class ToDoListViewController: UITableViewController {
         // Do any additional setup after loading the view.
         
         if let items = defaults.array(forKey: "ToDoAppArray") {
-            itemArray = items as! [String]
+            itemArray = items as! [DataModel]
         }
+        
+        let newItems = DataModel()
+        newItems.title = "Find Mike"
+        itemArray.append(newItems)
+        
+        let newItemsTwo = DataModel()
+        newItemsTwo.title = "Buy Eggos"
+        itemArray.append(newItemsTwo)
+        
+        let newItemsThree = DataModel()
+        newItemsThree.title = "Defeat Demigorgon"
+        itemArray.append(newItemsThree)
+        
+        let newItemsFour = DataModel()
+        newItemsFour.title = "Rescue 11"
+        itemArray.append(newItemsFour)
         
     }
 
@@ -30,10 +46,22 @@ class ToDoListViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         
-        cell.textLabel?.text = itemArray[indexPath.row]
+        cell.textLabel?.text = itemArray[indexPath.row].title
+        
+        
+        cell.accessoryType = itemArray[indexPath.row].done == true ? .checkmark : .none
+        
+        //MARK: - The line above replaces the 4 lines of code below. The line above is a ternery operator line stating if the condition for the value which is the cells accessory type is true then it is a checkmark otherwise it is none.
+        
+//        if itemArray[indexPath.row].done == true {
+//            cell.accessoryType = .checkmark
+//        }   else {
+//            cell.accessoryType = .none
+//        }
+        
+        print("cellForRowAt Method")
         
         return cell
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,17 +76,21 @@ class ToDoListViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
 
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        }   else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
+        //MARK: - The line above replaces the 4 lines of code below - the line above is for checking BOOL statements. BOOL statements can only be true / false.
+        
+//        if itemArray[indexPath.row].done == false {
+//            itemArray[indexPath.row].done = true
+//        }   else {
+//            itemArray[indexPath.row].done = false
+//        }
+        
+        tableView.reloadData()
         
     }
     
     //MARK: - Bar Button (Addition)
-    
     @IBAction func barButtonAddition(_ sender: UIBarButtonItem) {
         
         var textField = UITextField()
@@ -67,12 +99,17 @@ class ToDoListViewController: UITableViewController {
         
         let actionAlert = UIAlertAction(title: "OK", style: .default) { (actionSaidAlert) in
             //What will happen once user clicks OK on the alert
+            
             print("Success")
             print(textField.text!)
             
-            self.itemArray.append(textField.text!)
+            let newItem = DataModel()
+            newItem.title = textField.text!
             
-            self.defaults.set(self.itemArray, forKey: "ToDoAppArray")
+            self.itemArray.append(newItem)
+            
+            //self.defaults.set(self.itemArray, forKey: "ToDoAppArray")
+            self.defaults.setValue(self.itemArray, forKey: "ToDoAppArray")
             
             self.tableView.reloadData()
         }

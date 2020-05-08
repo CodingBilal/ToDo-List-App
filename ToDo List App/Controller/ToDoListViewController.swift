@@ -12,31 +12,38 @@ class ToDoListViewController: UITableViewController {
     
     var itemArray = [DataModel]()
     
-    let defaults = UserDefaults.standard
+    //let defaults = UserDefaults.standard
+    
+    let filePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Item.plist")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        if let items = defaults.array(forKey: "ToDoAppArray") {
-            itemArray = items as! [DataModel]
-        }
+        print(filePath!)
         
-        let newItems = DataModel()
-        newItems.title = "Find Mike"
-        itemArray.append(newItems)
         
-        let newItemsTwo = DataModel()
-        newItemsTwo.title = "Buy Eggos"
-        itemArray.append(newItemsTwo)
+//        if let items = defaults.array(forKey: "ToDoAppArray") as? [DataModel] {
+//            itemArray = items
+//        }
         
-        let newItemsThree = DataModel()
-        newItemsThree.title = "Defeat Demigorgon"
-        itemArray.append(newItemsThree)
+//        let newItems = DataModel()
+//        newItems.title = "Find Mike"
+//        itemArray.append(newItems)
+//
+//        let newItemsTwo = DataModel()
+//        newItemsTwo.title = "Buy Eggos"
+//        itemArray.append(newItemsTwo)
+//
+//        let newItemsThree = DataModel()
+//        newItemsThree.title = "Defeat Demigorgon"
+//        itemArray.append(newItemsThree)
+//
+//        let newItemsFour = DataModel()
+//        newItemsFour.title = "Rescue 11"
+//        itemArray.append(newItemsFour)
         
-        let newItemsFour = DataModel()
-        newItemsFour.title = "Rescue 11"
-        itemArray.append(newItemsFour)
+        loadData()
         
     }
 
@@ -48,7 +55,6 @@ class ToDoListViewController: UITableViewController {
         
         cell.textLabel?.text = itemArray[indexPath.row].title
         
-        
         cell.accessoryType = itemArray[indexPath.row].done == true ? .checkmark : .none
         
         //MARK: - The line above replaces the 4 lines of code below. The line above is a ternery operator line stating if the condition for the value which is the cells accessory type is true then it is a checkmark otherwise it is none.
@@ -59,7 +65,7 @@ class ToDoListViewController: UITableViewController {
 //            cell.accessoryType = .none
 //        }
         
-        print("cellForRowAt Method")
+        //print("cellForRowAt Method")
         
         return cell
     }
@@ -86,7 +92,7 @@ class ToDoListViewController: UITableViewController {
 //            itemArray[indexPath.row].done = false
 //        }
         
-        tableView.reloadData()
+        saveData()
         
     }
     
@@ -108,10 +114,12 @@ class ToDoListViewController: UITableViewController {
             
             self.itemArray.append(newItem)
             
-            //self.defaults.set(self.itemArray, forKey: "ToDoAppArray")
-            self.defaults.setValue(self.itemArray, forKey: "ToDoAppArray")
+            self.saveData()
             
-            self.tableView.reloadData()
+            //self.defaults.set(self.itemArray, forKey: "ToDoAppArray")
+            //self.defaults.setValue(self.itemArray, forKey: "ToDoAppArray")
+            
+            //self.tableView.reloadData()
         }
        
        alert.addTextField { (alertTextField) in
@@ -126,5 +134,28 @@ class ToDoListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func saveData() {
+        let encode = PropertyListEncoder()
+        do {
+            let dataEncoded = try encode.encode(itemArray)
+            try dataEncoded.write(to: filePath!)
+        }   catch {
+            print("Error Encoding Items, \(error)")
+        }
+        
+        tableView.reloadData()
+    }
+    
+    func loadData() {
+        do {
+        if let decodeFilePathData = try? Data(contentsOf: filePath!) {
+            let decoder = PropertyListDecoder()
+            itemArray = try decoder.decode([DataModel].self, from: decodeFilePathData)
+            }
+        }   catch {
+            print("Error Decoding Items, \(error)")
+        }
+    }
+
 }
 
